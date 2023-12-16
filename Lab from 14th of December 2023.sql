@@ -36,7 +36,7 @@ select * from film_actor;
 select a.first_name, a.last_name, count(b.film_id) as 'Number of times appeared'
 from sakila.actor as a
 join sakila.film_actor as b on a.actor_id = b.actor_id
-group by first_name, last_name
+group by a.actor_id, first_name, last_name
 order by first_name asc;
 
 -- 5. Which is the most active customer (the customer that has rented the most number of films)? Hint: Use appropriate join between the tables "customer" and "rental" and count the rental_id for each customer.
@@ -46,7 +46,7 @@ select * from sakila.rental;
 select a.first_name, a.last_name, count(rental_id) as 'Number of rentals'
 from sakila.customer as a
 join sakila.rental as b on a.customer_id = b.customer_id
-group by first_name, last_name
+group by a.customer_id, first_name, last_name
 order by first_name asc;
 
 -- Bonus: Which is the most rented film?
@@ -58,6 +58,6 @@ select a.title, count(c.rental_id) as 'Rental count'
 from sakila.film as a
 join sakila.inventory as b on a.film_id = b.film_id
 join sakila.rental as c on b.inventory_id = c.inventory_id
-group by a.title
+group by a.film_id, a.title
 order by `Rental count` desc
 limit 1;
